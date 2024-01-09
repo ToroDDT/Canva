@@ -5,4 +5,12 @@ router.get("/", function (req, res) {
   res.render("log-in");
 });
 
+router.post(
+  "/",
+  passport.authenticate("local", {
+    successRedirect: "/",
+    failureRedirect: "/",
+  })
+);
+
 module.exports = router;

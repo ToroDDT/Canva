@@ -9,6 +9,13 @@ const LocalStrategy = require("passport-local").Strategy;
 const mongoose = require("mongoose");
 const request = require("supertest");
 
+var User = require("./schemas");
+const mongoDb =
+  "mongodb+srv://David:Xmac2020@authentication.n0d7nq9.mongodb.net/?retryWrites=true&w=majority";
+mongoose.connect(mongoDb);
+const db = mongoose.connection;
+db.on("error", console.error.bind(console, "mongo connection error"));
+
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
 

@@ -45,8 +45,9 @@ passport.deserializeUser(async (id, done) => {
   }
 });
 
-var indexRouter = require("./routes/index");
-var usersRouter = require("./routes/users");
+const indexRouter = require("./routes/login.js");
+const usersRouter = require("./routes/users");
+const signUpRouter = require("./routes/sign-up");
 
 var app = express();
 
@@ -59,9 +60,13 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
+app.use(session({ secret: "cats", resave: false, saveUninitialized: true }));
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
+app.use("/sign-up", signUpRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

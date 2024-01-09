@@ -1,0 +1,22 @@
+extends layout
+
+block content
+  if user 
+    h1 Welcome Back 
+    div 
+      a(href="/log-out") Log Out 
+  else 
+  div(class="login-container")
+    h1 login 
+    div(class="input-fields")
+      form(action="", method="post")
+      div(class="input-fields")
+        label(for="username") Username 
+        input(type="text", name="username" placeholder=" Type your username")
+      div(class="input-fields")
+        label(for="password") Password 
+        input(type="password" name="password" placeholder="Type your password")
+        button Log In 
+
+
+

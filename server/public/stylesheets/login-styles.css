@@ -2,19 +2,26 @@ html {
   overflow: hidden;
 }
 
+* {
+  border: none;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+}
+
 body {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   justify-content: center;
   align-items: center;
   min-height: 100vh;
+  background-image: url("https://wallpapers.com/images/featured/beautiful-3vau5vtfa3qn7k8v.jpg");
 }
 
 .login-container {
+  background-color: white;
   border-radius: 18px;
   height: 40rem;
   width: 20rem;
-  border: 1px solid black;
   display: flex;
   flex-direction: column;
   padding: 20px;
@@ -24,7 +31,8 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: 10px;
+  gap: 5px;
+  margin-bottom: 12px;
 }
 
 input {
@@ -34,6 +42,7 @@ input {
   border-top: none;
   padding-bottom: 8px;
 }
+
 button {
   background-image: linear-gradient(
     to right,
@@ -51,10 +60,39 @@ button {
   box-shadow: 0 0 20px #eee;
   border-radius: 10px;
   display: block;
+  margin-top: 10%;
 }
 
 button:hover {
   background-position: right center; /* change the direction of the change here */
   color: #fff;
   text-decoration: none;
+}
+
+.wrapper {
+  box-sizing: border-box;
+  height: 50rem;
+  background: transparent;
+  width: 60%;
+  margin-left: 15px;
+}
+.text-element-one {
+  color: white;
+  font-size: 1000%;
+}
+
+.text-element-two {
+  color: white;
+  width: 100%;
+  display: flex;
+  margin-left: 25%;
+  font-size: 1000%;
+}
+
+.text-element-three {
+  color: white;
+  display: flex;
+  width: 100%;
+  justify-content: end;
+  font-size: 1000%;
 }

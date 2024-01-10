@@ -8,10 +8,11 @@ const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
 const mongoose = require("mongoose");
 const request = require("supertest");
+require("dotenv").config();
 
 var User = require("./schemas");
-const mongoDb =
-  "mongodb+srv://David:Xmac2020@authentication.n0d7nq9.mongodb.net/?retryWrites=true&w=majority";
+const mongoDb = process.env.MONGODB_AUTHENTICATION;
+
 mongoose.connect(mongoDb);
 const db = mongoose.connection;
 db.on("error", console.error.bind(console, "mongo connection error"));

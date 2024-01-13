@@ -1,9 +1,6 @@
-//import { useCallback, useState } from "react";
-//import sanitizeHtml from "sanitize-html";
-//import ContentEditable from "react-contenteditable";
-import { useEffect } from "react";
 import React, { useState, useRef } from "react";
 import { useEditable } from "use-editable";
+import "/src/CSS/Content.css";
 
 function EditableElement() {
   const [code, setCode] = useState("Welcome");
@@ -12,11 +9,13 @@ function EditableElement() {
   useEditable(editorRef, setCode);
 
   return (
-    <h1 className="App">
+    <h1>
       <p
+        className="border"
         style={{
           whiteSpace: "pre-wrap",
           fontFamily: "inter",
+          outline: 0,
         }}
         ref={editorRef}
       >
@@ -32,8 +31,3 @@ function EditableElement() {
 }
 
 export default EditableElement;
-
-// create a button to set state
-// when button is clicked show possible format styles
-// when a specific format is clicked
-// add format style to state

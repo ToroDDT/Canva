@@ -15,4 +15,5 @@ h1 {
   width: 80%;
   margin-bottom: 200px;
   padding-bottom: 600px;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }

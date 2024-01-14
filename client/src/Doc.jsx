@@ -1,33 +1,53 @@
-import React, { useState, useRef } from "react";
-import { useEditable } from "use-editable";
+import { useState } from "react";
+import sanitizeHtml from "sanitize-html";
+import ContentEditable from "react-contenteditable";
+import { useCallback } from "react";
 import "/src/CSS/Content.css";
 
-function EditableElement() {
-  const [code, setCode] = useState("Welcome");
-  const editorRef = useRef(null);
+const EditableElement = () => {
+  let correct = "CODING DESERT OF DESPAIR!!";
+  const [content, setContent] = useState("CODING DESERT OF DESPAIR!!");
+  const [text, setText] = useState("");
+  const onContentChange = useCallback((evt) => {
+    const sanitizeConf = {
+      allowedTags: ["b", "i", "a", "p"],
+      allowedAttributes: { a: ["href"] },
+    };
 
-  useEditable(editorRef, setCode);
+    setContent(sanitizeHtml(evt.currentTarget.innerHTML, sanitizeConf));
+  }, []);
 
-  return (
-    <h1>
-      <p
-        className="border"
-        style={{
-          whiteSpace: "pre-wrap",
-          fontFamily: "inter",
-          outline: 0,
-        }}
-        ref={editorRef}
-      >
-        {code.split(/\r?\n/).map((content, i, arr) => (
-          <React.Fragment key={i}>
-            <span style={{ color: "black" }}>{content}</span>
-            {i < arr.length - 1 ? "\n" : null}
-          </React.Fragment>
-        ))}
-      </p>
-    </h1>
-  );
-}
+  const onTextChange = useCallback((evt) => {
+    const sanitizeConf = {
+      allowedTags: ["b", "i", "a", "p"],
+      allowedAttributes: { a: ["href"] },
+    };
+
+    setText(sanitizeHtml(evt.currentTarget.innerHTML, sanitizeConf));
+  }, []);
+
+  if (content == correct) {
+    return (
+      <h1 className="placeHolder">
+        <ContentEditable
+          onChange={onContentChange}
+          onBlur={onContentChange}
+          html={content}
+        />
+      </h1>
+    );
+  } else {
+    //setContent("");
+    return (
+      <h1 className="">
+        <ContentEditable
+          onChange={onTextChange}
+          onBlur={onTextChange}
+          html={text}
+        />
+      </h1>
+    );
+  }
+};
 
 export default EditableElement;

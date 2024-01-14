@@ -9,3 +9,10 @@ h1 {
 .placeHolder {
   color: lightblue;
 }
+
+.editor-page {
+  border: 1px solid black;
+  width: 80%;
+  margin-bottom: 200px;
+  padding-bottom: 600px;
+}

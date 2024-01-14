@@ -1,0 +1,11 @@
+h1 {
+  border: none;
+}
+
+[contenteditable] {
+  outline: 0px solid transparent;
+}
+
+.placeHolder {
+  color: lightblue;
+}

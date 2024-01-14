@@ -1,0 +1,11 @@
+#main-application {
+  display: flex;
+  width: 100em;
+}
+
+#editor {
+  border: 1px solid white;
+  width: 98em;
+  padding-left: 20%;
+  background-color: #e8e8e8;
+}

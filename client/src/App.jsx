@@ -2,6 +2,7 @@ import NavBar from "./NavBar";
 import EditableElement from "./Doc";
 import TextEditorTools from "./TextEditorTools";
 import SideBar from "./SideBar";
+import "/src/CSS/mainApp.css";
 
 //import { useState } from "react";
 function App() {
@@ -12,7 +13,9 @@ function App() {
         <SideBar />
         <div id="text-editor-ui">
           <TextEditorTools />
-          <EditableElement />
+          <div id="editor">
+            <EditableElement />
+          </div>
         </div>
       </div>
     </>

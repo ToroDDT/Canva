@@ -5,7 +5,6 @@ import "/src/CSS/mainApp.css";
 import { createContext, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import sanitizeHtml from "sanitize-html";
-import ContentEditable from "react-contenteditable";
 import { useCallback } from "react";
 import "/src/CSS/Content.css";
 import { PlaceHolder } from "./Doc";

@@ -1,35 +1,56 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
-
-function App() {
-  const [count, setCount] = useState(0)
-
-  return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+import "/src/CSS/Content.css";
+import "/src/CSS/mainApp.css";
+import NavBar from "./NavBar";
+import TextEditorTools from "./TextEditorTools";
+import SideBar from "./SideBar";
+import { createContext, useState } from "react";
+import { v4 as uuidv4 } from "uuid";
+import { PlaceHolder } from "./Doc";
+interface ContentEditable {
+  id: string;
+  Elementtype: string;
+  text: string;
 }
 
-export default App
+const contentEditableContext: ContentEditable = {
+  id: uuidv4(),
+  Elementtype: "h1",
+  text: "",
+};
+
+const Context = createContext({
+  contentEditableContext,
+});
+
+//import { useState } from "react";
+function App() {
+  const [state, setState] = useState([{ id: uuidv4() }, { id: uuidv4() }]);
+  return (
+    <>
+      <NavBar />
+      <div id="main-application">
+        <SideBar />
+        <Context.Provider value={state}>
+          <div id="text-editor-ui">
+            <TextEditorTools />
+            <div id="editor">
+              <div className="editor-page">
+                <ul className="editable-content">
+                  {state.map((element) => {
+                    return (
+                      <li key={element.id}>
+                        <PlaceHolder />
+                      </li>
+                    );
+                  })}
+                </ul>
+              </div>
+            </div>
+          </div>
+        </Context.Provider>
+      </div>
+    </>
+  );
+}
+
+export default App;

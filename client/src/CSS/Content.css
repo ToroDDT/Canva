@@ -1,9 +1,10 @@
 h1 {
   border: none;
+  color: lightblue;
 }
 
 [contenteditable] {
-  outline: 0px solid transparent;
+  width: 100%;
 }
 
 .placeHolder {
@@ -21,9 +22,11 @@ h1 {
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   border-radius: 18px;
   background-color: white;
-  color: black;
+
+  display: flex;
+  box-sizing: border-box;
 }
 
-.editable-element {
-  display: flex;
+.editable-content {
+  width: 100%;
 }

@@ -9,10 +9,19 @@ function Togglebutton({ changeElement }) {
   const [toggle, setToggle] = useState<boolean>(true);
   const handleToggle = () => {
     setToggle(false);
-    alert("false");
   };
   if (toggle) {
-    return <button onClick={handleToggle}>+</button>;
+    return (
+      <button
+        onClick={(e) => {
+          e.stopPropagation();
+          handleToggle();
+          console.log("toggle");
+        }}
+      >
+        +
+      </button>
+    );
   } else {
     return <SelectOptionsMenu switchElement={changeElement} />;
   }
@@ -22,28 +31,32 @@ function SelectOptionsMenu({ switchElement }) {
   return (
     <div>
       <button
-        onClick={() => {
+        onClick={(e) => {
+          e.stopPropagation();
           switchElement("h1");
         }}
       >
         heading 1
       </button>
       <button
-        onClick={() => {
+        onClick={(e) => {
+          e.stopPropagation();
           switchElement("h2");
         }}
       >
         Heading 2
       </button>
       <button
-        onClick={() => {
+        onClick={(e) => {
+          e.stopPropagation();
           switchElement("h3");
         }}
       >
         heading 3
       </button>
       <button
-        onClick={() => {
+        onClick={(e) => {
+          e.stopPropagation();
           switchElement("p");
         }}
       >
@@ -114,12 +127,6 @@ function PlaceHolder({ ID }) {
     );
   }
 }
-
-// when button is clicked check if there is text
-// if there is text change existing componet
-// if not create a new drop down menu
-// drop down menu will have select options
-// when chosen add style options such as heading or paragraph
 
 PlaceHolder.propTypes = {
   ID: PropTypes.node,

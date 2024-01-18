@@ -1,34 +1,45 @@
 import "/src/CSS/Content.css";
 import "/src/CSS/mainApp.css";
-import NavBar from "./NavBar";
-import TextEditorTools from "./TextEditorTools";
-import SideBar from "./SideBar";
+import "./CSS/index.css";
 import { createContext, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
-import { PlaceHolder } from "./Doc";
-interface ContentEditable {
+import { PlaceHolder } from "./ContentEditable";
+import NavBar from "./NavBar";
+import SideBar from "./SideBar";
+import TextEditorTools from "./TextEditorTools";
+interface ContentEditableContext {
   id: string;
-  Elementtype: string;
+  ElementType: string;
   text: string;
+  color: string;
 }
 
-const contentEditableContext: ContentEditable = {
+const componentDescription: ContentEditableContext = {
   id: uuidv4(),
-  Elementtype: "h1",
+  ElementType: "h1",
   text: "",
+  color: "",
 };
 
 const Context = createContext({
-  contentEditableContext,
+  componentDescription,
 });
 
-//import { useState } from "react";
 function App() {
-  const [state, setState] = useState([{ id: uuidv4() }, { id: uuidv4() }]);
+  const [state, setState] = useState([
+    { id: uuidv4(), ElementType: "p", color: "" },
+  ]);
+  const [clickedElement, setClickedElement] = useState<boolean>(false);
   return (
     <>
       <NavBar />
-      <div id="main-application">
+      <div
+        onClick={() => {
+          setClickedElement(true);
+          console.log("working");
+        }}
+        id="main-application"
+      >
         <SideBar />
         <Context.Provider value={state}>
           <div id="text-editor-ui">
@@ -39,7 +50,11 @@ function App() {
                   {state.map((element) => {
                     return (
                       <li key={element.id}>
-                        <PlaceHolder />
+                        <PlaceHolder
+                          ID={element.id}
+                          ElementType={element.ElementType}
+                          color={element.color}
+                        />
                       </li>
                     );
                   })}

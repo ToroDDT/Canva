@@ -16,18 +16,62 @@ function PlaceHolder({ ID }) {
 
     setText(sanitizeHtml(evt.currentTarget.innerHTML, sanitizeConf));
   }, []);
+  if (element == "h1") {
+    return (
+      <h1 className="editor-element">
+        <Togglebutton ID={ID} text={text} />
+        <ContentEditable
+          onChange={onTextChange}
+          onBlur={onTextChange}
+          html={text}
+        />
+      </h1>
+    );
+  } else if (element == "h2") {
+    return (
+      <h2 className="editor-element">
+        <Togglebutton ID={ID} text={text} />
+        <ContentEditable
+          onChange={onTextChange}
+          onBlur={onTextChange}
+          html={text}
+        />
+      </h2>
+    );
+  } else if (element == "h3") {
+    return (
+      <h3 className="editor-element">
+        <Togglebutton ID={ID} text={text} />
+        <ContentEditable
+          onChange={onTextChange}
+          onBlur={onTextChange}
+          html={text}
+        />
+      </h3>
+    );
+  } else if (element == "p") {
+    return (
+      <p className="editor-element">
+        <Togglebutton ID={ID} text={text} />
+        <ContentEditable
+          onChange={onTextChange}
+          onBlur={onTextChange}
+          html={text}
+        />
+      </p>
+    );
+  }
 }
 
 function Togglebutton({ ID }) {
   const [toggle, setToggle] = useState(false);
 
   const conponentID = ID;
-  const addComponenet = setState(false);
   const toggleButton = setToggle(true);
   if (!toggle) {
-    return <button>+</button>;
+    return <button onClick={toggleButton}>+</button>;
   } else {
-    return <SelectOptionsMenu />;
+    return <SelectOptionsMenu ID={conponentID} />;
   }
 }
 

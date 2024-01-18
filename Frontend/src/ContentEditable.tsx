@@ -5,8 +5,9 @@ import { useCallback } from "react";
 import "/src/CSS/Content.css";
 import { PropTypes } from "prop-types";
 
-function PlaceHolder() {
+function PlaceHolder({ ID }) {
   const [text, setText] = useState<string>("");
+  const [element, setElement] = useState<string>("p");
   const onTextChange = useCallback((evt) => {
     const sanitizeConf = {
       allowedTags: ["b", "i", "a", "p"],
@@ -15,19 +16,39 @@ function PlaceHolder() {
 
     setText(sanitizeHtml(evt.currentTarget.innerHTML, sanitizeConf));
   }, []);
+}
+
+function Togglebutton({ ID }) {
+  const [toggle, setToggle] = useState(false);
+
+  const conponentID = ID;
+  const addComponenet = setState(false);
+  const toggleButton = setToggle(true);
+  if (!toggle) {
+    return <button>+</button>;
+  } else {
+    return <SelectOptionsMenu />;
+  }
+}
+
+function SelectOptionsMenu() {
   return (
-    <h1 className="editor-element">
-      <ContentEditable
-        onChange={onTextChange}
-        onBlur={onTextChange}
-        html={text}
-      />
-    </h1>
+    <div>
+      <button>heading 1</button>
+      <button> Heading 2</button>
+      <button> heading 3</button>
+    </div>
   );
 }
 
+// when button is clicked check if there is text
+// if there is text change existing componet
+// if not create a new drop down menu
+// drop down menu will have select options
+// when chosen add style options such as heading or paragraph
+
 PlaceHolder.propTypes = {
-  Element: PropTypes.node,
+  ID: PropTypes.node,
 };
 
 export { PlaceHolder };

@@ -5,6 +5,7 @@ h1 {
 
 [contenteditable] {
   width: 100%;
+  outline: 0px transparent;
 }
 
 .placeHolder {

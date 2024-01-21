@@ -1,11 +1,14 @@
-import { useState } from "react";
 import sanitizeHtml from "sanitize-html";
 import ContentEditable from "react-contenteditable";
 import { useCallback } from "react";
 import "/src/CSS/Content.css";
 import { PropTypes } from "prop-types";
+import { useState } from "react";
+import { useContext } from "react";
+import { ContentEditableContext } from "./App";
+import { v4 as uuidv4 } from "uuid";
 
-function Togglebutton({ changeElement }) {
+function Togglebutton({ text, switchElement }) {
   const [toggle, setToggle] = useState<boolean>(true);
   const handleToggle = () => {
     setToggle(false);
@@ -23,17 +26,25 @@ function Togglebutton({ changeElement }) {
       </button>
     );
   } else {
-    return <SelectOptionsMenu switchElement={changeElement} />;
+    return <SelectOptionsMenu text={text} switchElement={switchElement} />;
   }
 }
 
-function SelectOptionsMenu({ switchElement }) {
+function SelectOptionsMenu({ text, switchElement }) {
+  const { amount, changeAmount } = useContext(ContentEditableContext);
+  function verifyContentEditableIsEmpty(elementType) {
+    if (text == "") {
+      switchElement(elementType);
+    } else {
+      changeAmount(elementType);
+    }
+  }
   return (
     <div>
       <button
         onClick={(e) => {
           e.stopPropagation();
-          switchElement("h1");
+          verifyContentEditableIsEmpty("h1");
         }}
       >
         heading 1
@@ -41,7 +52,7 @@ function SelectOptionsMenu({ switchElement }) {
       <button
         onClick={(e) => {
           e.stopPropagation();
-          switchElement("h2");
+          verifyContentEditableIsEmpty("h2");
         }}
       >
         Heading 2
@@ -49,7 +60,7 @@ function SelectOptionsMenu({ switchElement }) {
       <button
         onClick={(e) => {
           e.stopPropagation();
-          switchElement("h3");
+          verifyContentEditableIsEmpty("h3");
         }}
       >
         heading 3
@@ -57,7 +68,7 @@ function SelectOptionsMenu({ switchElement }) {
       <button
         onClick={(e) => {
           e.stopPropagation();
-          switchElement("p");
+          verifyContentEditableIsEmpty("p");
         }}
       >
         P
@@ -66,9 +77,10 @@ function SelectOptionsMenu({ switchElement }) {
   );
 }
 
-function PlaceHolder({ ID }) {
-  const [text, setText] = useState<string>("");
-  const [element, setElement] = useState<string>("h1");
+function PlaceHolder({ ID, ElementType, color }) {
+  const { amount, setAmount } = useContext(ContentEditableContext);
+  const [text, setText] = useState<string>("Type Here");
+  const [element, setElementType] = useState<string>(ElementType);
   const onTextChange = useCallback((evt) => {
     const sanitizeConf = {
       allowedTags: ["b", "i", "a", "p"],
@@ -79,12 +91,12 @@ function PlaceHolder({ ID }) {
   }, []);
 
   const changeElement = (element: string) => {
-    setElement(element);
+    setElementType(element);
   };
   if (element == "h1") {
     return (
       <h1 className="editor-element">
-        <Togglebutton ID={ID} text={text} swithElement={changeElement} />
+        <Togglebutton ID={ID} text={text} switchElement={changeElement} />
         <ContentEditable
           onChange={onTextChange}
           onBlur={onTextChange}
@@ -95,7 +107,7 @@ function PlaceHolder({ ID }) {
   } else if (element == "h2") {
     return (
       <h2 className="editor-element">
-        <Togglebutton ID={ID} text={text} swithElement={changeElement} />
+        <Togglebutton ID={ID} text={text} switchElement={changeElement} />
         <ContentEditable
           onChange={onTextChange}
           onBlur={onTextChange}
@@ -106,7 +118,7 @@ function PlaceHolder({ ID }) {
   } else if (element == "h3") {
     return (
       <h3 className="editor-element">
-        <Togglebutton ID={ID} text={text} swithElement={changeElement} />
+        <Togglebutton ID={ID} text={text} switchElement={changeElement} />
         <ContentEditable
           onChange={onTextChange}
           onBlur={onTextChange}
@@ -117,7 +129,7 @@ function PlaceHolder({ ID }) {
   } else if (element == "p") {
     return (
       <p className="editor-element">
-        <Togglebutton ID={ID} text={text} swithElement={changeElement} />
+        <Togglebutton ID={ID} text={text} switchElement={changeElement} />
         <ContentEditable
           onChange={onTextChange}
           onBlur={onTextChange}

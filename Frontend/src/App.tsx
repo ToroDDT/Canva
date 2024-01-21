@@ -1,34 +1,38 @@
 import "/src/CSS/Content.css";
 import "/src/CSS/mainApp.css";
 import "./CSS/index.css";
-import { createContext, useState } from "react";
-import { v4 as uuidv4 } from "uuid";
+import { useContext, useState } from "react";
 import { PlaceHolder } from "./ContentEditable";
 import NavBar from "./NavBar";
 import SideBar from "./SideBar";
 import TextEditorTools from "./TextEditorTools";
-interface ContentEditableContext {
-  id: string;
-  ElementType: string;
-  text: string;
-  color: string;
-}
+import { createContext } from "react";
+import { v4 as uuidv4 } from "uuid";
 
-const componentDescription: ContentEditableContext = {
+export const ContentEditableContext = createContext({
   id: uuidv4(),
-  ElementType: "h1",
-  text: "",
+  ElemenType: "h1",
   color: "",
-};
-
-const Context = createContext({
-  componentDescription,
 });
 
 function App() {
-  const [state, setState] = useState([
-    { id: uuidv4(), ElementType: "p", color: "" },
-  ]);
+  interface ContentEditableDetails {
+    id: string;
+    ElementType: string;
+    color: string;
+  }
+
+  const [amount, setAmount] = useState<
+    { id: string; ElementType: string; color: string }[]
+  >([{ id: uuidv4(), ElementType: "h1", color: "" }]);
+
+  const changeAmount = (elementType) => {
+    setAmount([
+      ...amount,
+      { id: uuidv4(), ElementType: elementType, color: "" },
+    ]);
+  };
+  console.log(amount);
   const [clickedElement, setClickedElement] = useState<boolean>(false);
   return (
     <>
@@ -41,13 +45,13 @@ function App() {
         id="main-application"
       >
         <SideBar />
-        <Context.Provider value={state}>
+        <ContentEditableContext.Provider value={{ amount, changeAmount }}>
           <div id="text-editor-ui">
             <TextEditorTools />
             <div id="editor">
               <div className="editor-page">
                 <ul className="editable-content">
-                  {state.map((element) => {
+                  {amount.map((element) => {
                     return (
                       <li key={element.id}>
                         <PlaceHolder
@@ -62,10 +66,12 @@ function App() {
               </div>
             </div>
           </div>
-        </Context.Provider>
+        </ContentEditableContext.Provider>
       </div>
     </>
   );
 }
+
+// pass state of
 
 export default App;

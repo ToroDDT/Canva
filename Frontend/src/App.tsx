@@ -32,7 +32,6 @@ function App() {
       { id: uuidv4(), ElementType: elementType, color: "" },
     ]);
   };
-  console.log(amount);
   const [clickedElement, setClickedElement] = useState<boolean>(false);
   return (
     <>
@@ -40,7 +39,6 @@ function App() {
       <div
         onClick={() => {
           setClickedElement(true);
-          console.log("working");
         }}
         id="main-application"
       >

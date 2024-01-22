@@ -1,12 +1,11 @@
 import sanitizeHtml from "sanitize-html";
 import ContentEditable from "react-contenteditable";
-import { useCallback } from "react";
+import { useCallback, useEffect, useRef } from "react";
 import "/src/CSS/Content.css";
 import { PropTypes } from "prop-types";
 import { useState } from "react";
 import { useContext } from "react";
 import { ContentEditableContext } from "./App";
-import { v4 as uuidv4 } from "uuid";
 
 function Togglebutton({ text, switchElement }) {
   const [toggle, setToggle] = useState<boolean>(true);
@@ -78,21 +77,28 @@ function SelectOptionsMenu({ text, switchElement }) {
 }
 
 function PlaceHolder({ ID, ElementType, color }) {
-  const { amount, setAmount } = useContext(ContentEditableContext);
-  const [text, setText] = useState<string>("Type Here");
+  const [text, setText] = useState("");
+
+  const [span, addSpan] = useState(true);
   const [element, setElementType] = useState<string>(ElementType);
+
   const onTextChange = useCallback((evt) => {
     const sanitizeConf = {
-      allowedTags: ["b", "i", "a", "p"],
+      allowedTags: ["b", "i", "a", "p", "span"],
       allowedAttributes: { a: ["href"] },
     };
-
-    setText(sanitizeHtml(evt.currentTarget.innerHTML, sanitizeConf));
+    if (span) {
+      setText(text + `<span> ${text} <span>`);
+      addSpan(false);
+    } else {
+      setText(sanitizeHtml(evt.currentTarget.innerHTML, sanitizeConf));
+    }
   }, []);
 
   const changeElement = (element: string) => {
     setElementType(element);
   };
+
   if (element == "h1") {
     return (
       <h1 className="editor-element">

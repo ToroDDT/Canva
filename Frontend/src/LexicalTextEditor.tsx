@@ -44,3 +44,7 @@ export default function Editor() {
     </LexicalComposer>
   );
 }
+
+function OnChangePlugin({ onChange }) {
+  const [editor] = useLexicalComposerContext();
+}

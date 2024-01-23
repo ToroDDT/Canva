@@ -47,4 +47,12 @@ export default function Editor() {
 
 function OnChangePlugin({ onChange }) {
   const [editor] = useLexicalComposerContext();
+  useEffect(() => {
+    return editor.registerUpdateListener(
+      ({ editorState }) => {
+        onChange(editorState);
+      },
+      [editor, onChange]
+    );
+  });
 }

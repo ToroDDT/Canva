@@ -8,6 +8,7 @@ import SideBar from "./SideBar";
 import TextEditorTools from "./TextEditorTools";
 import { createContext } from "react";
 import { v4 as uuidv4 } from "uuid";
+import Editor from "./LexicalTextEditor";
 
 export const ContentEditableContext = createContext({
   id: uuidv4(),
@@ -54,11 +55,7 @@ function App() {
                   {amount.map((element) => {
                     return (
                       <li key={element.id}>
-                        <PlaceHolder
-                          ID={element.id}
-                          ElementType={element.ElementType}
-                          color={element.color}
-                        />
+                        <Editor />
                       </li>
                     );
                   })}

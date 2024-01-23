@@ -1,5 +1,5 @@
 import { $getRoot, $getSelection } from "lexical";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 import { LexicalComposer } from "@lexical/react/LexicalComposer";
 import { PlainTextPlugin } from "@lexical/react/LexicalPlainTextPlugin";
@@ -26,6 +26,10 @@ function onError(error) {
 }
 
 export default function Editor() {
+  const [editorState, setEditorState] = useState();
+  function onChange(editorState) {
+    setEditorState(editorState);
+  }
   const initialConfig = {
     namespace: "MyEditor",
     theme,
